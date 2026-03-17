@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 18% 13%;
+    --foreground: 213 20% 78%;
+
+    --card: 220 18% 16%;
+    --card-foreground: 213 20% 78%;
+
+    --popover: 220 18% 16%;
+    --popover-foreground: 213 20% 78%;
+
+    --primary: 187 70% 52%;
+    --primary-foreground: 220 18% 8%;
+
+    --secondary: 220 18% 20%;
+    --secondary-foreground: 213 20% 78%;
+
+    --muted: 220 14% 18%;
+    --muted-foreground: 215 12% 50%;
+
+    --accent: 280 60% 65%;
+    --accent-foreground: 220 18% 95%;
+
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 14% 22%;
+    --input: 220 14% 22%;
+    --ring: 187 70% 52%;
+
+    --radius: 0.25rem;
+
+    --sidebar-background: 220 18% 11%;
+    --sidebar-foreground: 213 20% 65%;
+    --sidebar-primary: 187 70% 52%;
+    --sidebar-primary-foreground: 220 18% 8%;
+    --sidebar-accent: 220 18% 16%;
+    --sidebar-accent-foreground: 213 20% 78%;
+    --sidebar-border: 220 14% 18%;
+    --sidebar-ring: 187 70% 52%;
+
+    /* VS Code specific tokens */
+    --vscode-titlebar: 220 18% 10%;
+    --vscode-activitybar: 220 18% 11%;
+    --vscode-tab-active: 220 18% 13%;
+    --vscode-tab-inactive: 220 18% 11%;
+    --vscode-statusbar: 230 60% 30%;
+    --vscode-linenum: 220 10% 30%;
+    --vscode-selection: 210 50% 25%;
+    --vscode-keyword: 280 60% 70%;
+    --vscode-string: 30 70% 60%;
+    --vscode-function: 55 80% 70%;
+    --vscode-comment: 120 20% 40%;
+    --vscode-type: 187 70% 52%;
+    --vscode-variable: 213 60% 75%;
+    --vscode-number: 100 50% 55%;
+    --vscode-operator: 213 20% 78%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+  }
+
+  code, .font-mono {
+    font-family: 'Fira Code', monospace;
+  }
+}
+
+/* Custom scrollbar for VS Code feel */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(220 18% 11%);
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(220 14% 25%);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(220 14% 32%);
+}
+
+/* Typing cursor animation */
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.cursor-blink {
+  animation: blink 1s step-end infinite;
+}
+
+/* Line highlight */
+.line-highlight {
+  background: hsl(210 50% 25% / 0.3);
+}
