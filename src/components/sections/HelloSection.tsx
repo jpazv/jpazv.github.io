@@ -49,7 +49,7 @@ const HelloSection = () => {
         <div className="flex flex-col gap-6 max-w-lg relative z-10">
           <div className="font-mono text-base text-muted-foreground">Hi all. I am</div>
           <h1 className="font-mono text-5xl font-bold text-foreground leading-tight">
-            João Moreira
+            João Paulo Azevedo
           </h1>
           <div className="font-mono text-xl text-vscode-string">
             &gt; Front-end developer
