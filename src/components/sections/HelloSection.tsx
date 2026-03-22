@@ -55,7 +55,7 @@ const HelloSection = () => {
             &gt; Front-end developer
           </div>
           <div className="mt-8 font-mono text-sm space-y-1">
-            <div className="text-muted-foreground">// complete the game to continue</div>
+            <div className="text-muted-foreground">// complete the game to continue </div>
             <div className="text-muted-foreground">// find my profile on Github:</div>
             <div>
               <span className="text-vscode-keyword">const </span>
