@@ -1,4 +1,4 @@
-import SnakeGame from "@/components/SnakeGame";   
+import SnakeGame from "@/components/SnakeGame";
 // ─── HelloSection ─────────────────────────────────────────────────────────────
 const HelloSection = () => {
   return (
@@ -35,8 +35,7 @@ const HelloSection = () => {
 
       {/* ── Desktop ──────────────────────────────────────────────────────────── */}
       <div
-        className="hidden md:flex items-center justify-between h-full px-16 py-12 gap-12 relative overflow-hidden"
-      >
+        className="hidden md:flex items-center justify-start h-full px-16 py-12 gap-12 relative overflow-hidden"      >
         {/* Green radial glow background */}
         <div
           className="absolute inset-0 pointer-events-none"
@@ -62,7 +61,7 @@ const HelloSection = () => {
               <span className="text-vscode-keyword">const </span>
               <span className="text-vscode-variable">githubLink</span>
               <span className="text-foreground"> = </span>
-              <a href="#" className="text-vscode-string hover:underline">
+              <a href="https://github.com/jpazv" className="text-vscode-string hover:underline">
                 "https://github.com/jpazv"
               </a>
             </div>
@@ -70,7 +69,7 @@ const HelloSection = () => {
         </div>
 
         {/* Right side - snake game */}
-        <div className="shrink-0 relative z-10">
+        <div className="shrink-0 relative z-10 ml-80">
           <SnakeGame />
         </div>
       </div>

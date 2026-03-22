@@ -67,10 +67,16 @@ const ContactSection = () => {
         </button>
         <AccordionPanel open={expandedSections["find-me"]}>
           <div className="ml-4 space-y-1">
-            {["YouTube", "dev.to", "Instagram", "Twitch"].map(platform => (
-              <div key={platform} className="flex items-center gap-2 px-3 py-1 text-sm font-mono text-muted-foreground hover:text-foreground cursor-pointer transition-colors">
-                <ExternalLink className="w-3 h-3" /> {platform}
-              </div>
+            {[
+              { label: "YouTube", url: "https://www.youtube.com/@jp_azv" },
+              { label: "dev.to", url: "https://dev.to/joaopauloazevedo" },
+              { label: "Instagram", url: "https://www.instagram.com/zzz_john" },
+              { label: "Twitch", url: "https://www.twitch.tv/zzz_john" },
+            ].map(({ label, url }) => (
+              <a key={label} href={url} target="_blank" rel="noopener noreferrer"
+                className="flex items-center gap-2 px-3 py-1 text-sm font-mono text-muted-foreground hover:text-foreground cursor-pointer transition-colors">
+                <ExternalLink className="w-3 h-3" /> {label}
+              </a>
             ))}
           </div>
         </AccordionPanel>
@@ -106,12 +112,16 @@ const ContactSection = () => {
             </button>
             <AccordionPanel open={expandedSections["find-me"]}>
               <div className="px-6 py-2 space-y-1 border-b border-border">
-                {["YouTube", "dev.to", "Instagram", "Twitch"].map((platform, i) => (
-                  <div key={platform}
-                    className="flex items-center gap-2 py-1 font-mono text-sm text-muted-foreground hover:text-foreground cursor-pointer transition-colors"
-                    style={{ animationDelay: `${i * 30}ms` }}>
-                    <ExternalLink className="w-3 h-3" /> {platform}
-                  </div>
+                {[
+                  { label: "YouTube", url: "https://www.youtube.com/channel/UCz4NxtPZ9hv6Ax---a2BBaQ" },
+                  { label: "dev.to", url: "https://dev.to/joaopauloazevedo" },
+                  { label: "Instagram", url: "https://www.instagram.com/zzz_john" },
+                  { label: "Twitch", url: "https://www.twitch.tv/zzz_john" },
+                ].map(({ label, url }) => (
+                  <a key={label} href={url} target="_blank" rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-3 py-1 text-sm font-mono text-muted-foreground hover:text-foreground cursor-pointer transition-colors">
+                    <ExternalLink className="w-3 h-3" /> {label}
+                  </a>
                 ))}
               </div>
             </AccordionPanel>
@@ -136,15 +146,14 @@ const ContactSection = () => {
                 <label className="font-mono text-sm text-muted-foreground block mb-2">_name:</label>
                 <input type="text" value={name} onChange={e => setName(e.target.value)}
                   className="w-full bg-secondary/30 border border-border rounded-lg px-4 py-2.5 font-mono text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-primary placeholder:text-muted-foreground transition-colors"
-                  placeholder="Jonathan Davis" />
+                  placeholder="enter your name here" />
               </div>
               <div>
                 <label className="font-mono text-sm text-muted-foreground block mb-2">_email:</label>
                 <input type="email" value={email}
                   onChange={e => { setEmail(e.target.value); setEmailError(""); }}
                   onBlur={e => setEmailError(validateEmail(e.target.value))}
-                  className={`w-full bg-secondary/30 border rounded-lg px-4 py-2.5 font-mono text-sm text-foreground focus:outline-none focus:ring-1 placeholder:text-muted-foreground transition-colors ${
-                    emailError ? "border-red-500 focus:ring-red-500" : "border-border focus:ring-primary"}`} />
+                  className={`w-full bg-secondary/30 border rounded-lg px-4 py-2.5 font-mono text-sm text-foreground focus:outline-none focus:ring-1 placeholder:text-muted-foreground transition-colors ${emailError ? "border-red-500 focus:ring-red-500" : "border-border focus:ring-primary"}`} />
                 {emailError && <div className="font-mono text-xs text-red-500 mt-1">{emailError}</div>}
               </div>
               <div>
@@ -154,10 +163,9 @@ const ContactSection = () => {
                   placeholder="your message here ..." />
               </div>
               <button onClick={handleSubmit}
-                className={`font-mono text-sm px-6 py-2 rounded-lg transition-all duration-200 ${
-                  isValid
-                    ? "bg-vscode-string/20 border border-vscode-string text-vscode-string hover:bg-vscode-string/30 scale-100"
-                    : "bg-secondary/50 text-muted-foreground hover:text-foreground hover:bg-secondary"}`}>
+                className={`font-mono text-sm px-6 py-2 rounded-lg transition-all duration-200 ${isValid
+                  ? "bg-vscode-string/20 border border-vscode-string text-vscode-string hover:bg-vscode-string/30 scale-100"
+                  : "bg-secondary/50 text-muted-foreground hover:text-foreground hover:bg-secondary"}`}>
                 submit-message
               </button>
             </div>

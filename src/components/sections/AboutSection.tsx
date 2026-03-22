@@ -1,45 +1,102 @@
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import { FolderOpen, FileText, Mail, Phone } from "lucide-react";
-import { AnimatedChevron } from "@/hooks/useAccordion.tsx";
-import { AccordionPanel } from "@/hooks/useAccordion.tsx";
+import { AnimatedChevron, AccordionPanel } from "@/hooks/useAccordion.tsx";
 
-
-
-// ─── Data ─────────────────────────────────────────────────────────────────────
 const PERSONAL_INFO = {
   bio: {
     label: "bio", icon: "🟥",
     content: [
-      "/**", " * Sobre mim",
-      " * Eu tenho 26 anos e sou um desenvolvedor front-end",
-      " * com paixão por criar interfaces de usuário",
-      " * envolventes e responsivas. Com mais de 5 anos",
-      " * de experiência na programação, tenho trabalhado",
-      " * em uma variedade de projetos, desde pequenos",
-      " * sites até grandes aplicações web.", " */",
+      "/**",
+      " * About me",
+      " * Hey! I'm João Paulo, a 26-year-old developer",
+      " * from Fortaleza, Brazil. I've spent the last",
+      " * 2+ years building production apps — one year",
+      " * in React Native (mobile) and one in React",
+      " * (web) — working at UNIFOR, Newave and",
+      " * Polibras Software.",
+      " *",
+      " * My stack goes beyond the front-end: I'm",
+      " * comfortable with Node.js, MySQL and Postgres,",
+      " * and I care deeply about CI/CD pipelines and",
+      " * shipping fast without breaking things.",
+      " *",
+      " * Currently studying ADS at UNIFOR (2022-2026)",
+      " * and creating content on YouTube and dev.to.",
+      " * I'm actively looking to work with",
+      " * international teams and explore new areas",
+      " * of tech — always hungry for what's next.",
+      " */",
     ],
   },
   interests: {
-    label: "interesses", icon: "🟩",
+    label: "interests", icon: "🟩",
     content: [
-      "/**", " * Me interesso por",
-      " * - Desenvolvimento Web", " * - Open Source",
-      " * - Design de Interfaces", " * - Empreendedorismo", " */",
+      "/**",
+      " * What I'm into",
+      " * - Front-end Development",
+      " * - Content Creation (YouTube & dev.to)",
+      " * - Open Source",
+      " * - UI/UX Design",
+      " * - Entrepreneurship",
+      " */",
     ],
   },
   education: {
-    label: "educação", icon: "🟦",
-    items: ["ensino-medio", "universidade"],
+    label: "education", icon: "🟦",
+    items: ["high-school", "college"],
     content: [
-      "/**", " * Educação",
-      " * - Universidade de Fortaleza",
-      " * - Análise e desenvolvimento de sistemas",
-      " * - 2022 - 2026", " */",
+      "/**",
+      " * Education",
+      " * - Colégio Santa Cecília",
+      " * - 2015 – 2018",
+      " *",
+      " * - Universidade de Fortaleza — UNIFOR",
+      " * - Systems Analysis and Development",
+      " * - 2024 – 2026",
+      " */",
+    ],
+  },
+  professionalInfo: {
+    label: "professional-info", icon: "🟧",
+    content: [
+      "/**",
+      " * Professional info",
+      " * - React & React Native — 2 yrs production",
+      " * - Node.js, MySQL, PostgreSQL",
+      " * - CI/CD pipelines & agile workflows",
+      " *",
+      " * Experience",
+      " * - Polibras Software — Front-end Dev",
+      " * - Newave — Front-end Dev",
+      " * - UNIFOR — Developer",
+      " *",
+      " * Currently open to international roles",
+      " * and new areas of tech.",
+      " */",
+    ],
+  },
+  hobbies: {
+    label: "hobbies", icon: "🟪",
+    content: [
+      "/**",
+      " * Hobbies & Interests",
+      " * - Music lover — lofi for focus & chill",
+      " * - Certified coffee addict ☕",
+      " *",
+      " * Collector",
+      " * - Trading cards",
+      " * - Manga volumes",
+      " * - Action figures",
+      " * - Japanese culture in general",
+      " *",
+      " * Style",
+      " * - Big into sneakers & streetwear",
+      " * - Always looking for the next clean fit",
+      " */",
     ],
   },
 };
 
-// ─── Component ────────────────────────────────────────────────────────────────
 const AboutSection = () => {
   const [activeFile, setActiveFile] = useState("bio");
   const [expanded, setExpanded] = useState<Record<string, boolean>>({
@@ -54,7 +111,6 @@ const AboutSection = () => {
     PERSONAL_INFO[activeFile as keyof typeof PERSONAL_INFO]?.content ||
     PERSONAL_INFO.bio.content;
 
-  // content fade when switching file
   const [contentKey, setContentKey] = useState("bio");
   const [contentAnim, setContentAnim] = useState("");
   const switchFile = (key: string) => {
@@ -89,7 +145,9 @@ const AboutSection = () => {
           </button>
           <AccordionPanel open={expanded["personal-info"]}>
             <div className="ml-4">
-              {Object.entries(PERSONAL_INFO).map(([key, val]) => (
+              {Object.entries(PERSONAL_INFO)
+                .filter(([key]) => !["professionalInfo", "hobbies"].includes(key))
+                .map(([key, val]) => (
                 <div key={key}>
                   {key === "education" ? (
                     <>
@@ -102,8 +160,7 @@ const AboutSection = () => {
                         {"items" in val && val.items?.map((item: string) => (
                           <button key={item} onClick={() => switchFile("education")}
                             className={`flex items-center gap-2 px-3 py-1 ml-6 w-full text-sm font-mono transition-colors ${
-                              activeFile === "education" ? "text-foreground" : "text-muted-foreground hover:text-foreground"
-                            }`}>
+                              activeFile === "education" ? "text-foreground" : "text-muted-foreground hover:text-foreground"}`}>
                             <FileText className="w-3 h-3" /> {item}
                           </button>
                         ))}
@@ -112,8 +169,7 @@ const AboutSection = () => {
                   ) : (
                     <button onClick={() => switchFile(key)}
                       className={`flex items-center gap-2 px-3 py-1 w-full text-sm font-mono transition-colors ${
-                        activeFile === key ? "text-foreground" : "text-muted-foreground hover:text-foreground"
-                      }`}>
+                        activeFile === key ? "text-foreground" : "text-muted-foreground hover:text-foreground"}`}>
                       <span className="w-3 h-3 opacity-0" />
                       <span>{val.icon}</span> {val.label}
                     </button>
@@ -123,9 +179,45 @@ const AboutSection = () => {
             </div>
           </AccordionPanel>
 
+          {/* professional-info desktop */}
+          <button onClick={() => toggle("professional-info")}
+            className="flex items-center gap-2 px-3 py-1.5 w-full text-sm font-mono text-foreground hover:bg-secondary/30 transition-colors mt-1">
+            <AnimatedChevron open={expanded["professional-info"]} />
+            <FolderOpen className="w-4 h-4 text-vscode-string" />
+            professional-info
+          </button>
+          <AccordionPanel open={expanded["professional-info"]}>
+            <div className="ml-4">
+              <button onClick={() => switchFile("professionalInfo")}
+                className={`flex items-center gap-2 px-3 py-1 w-full text-sm font-mono transition-colors ${
+                  activeFile === "professionalInfo" ? "text-foreground" : "text-muted-foreground hover:text-foreground"}`}>
+                <span className="w-3 h-3 opacity-0" />
+                <span>🟧</span> professional-info
+              </button>
+            </div>
+          </AccordionPanel>
+
+          {/* hobbies desktop */}
+          <button onClick={() => toggle("hobbies")}
+            className="flex items-center gap-2 px-3 py-1.5 w-full text-sm font-mono text-foreground hover:bg-secondary/30 transition-colors mt-1">
+            <AnimatedChevron open={expanded.hobbies} />
+            <FolderOpen className="w-4 h-4 text-vscode-string" />
+            hobbies
+          </button>
+          <AccordionPanel open={expanded.hobbies}>
+            <div className="ml-4">
+              <button onClick={() => switchFile("hobbies")}
+                className={`flex items-center gap-2 px-3 py-1 w-full text-sm font-mono transition-colors ${
+                  activeFile === "hobbies" ? "text-foreground" : "text-muted-foreground hover:text-foreground"}`}>
+                <span className="w-3 h-3 opacity-0" />
+                <span>🟪</span> hobbies
+              </button>
+            </div>
+          </AccordionPanel>
+
           {/* contacts */}
           <button onClick={() => toggle("contacts")}
-            className="flex items-center gap-2 px-3 py-1.5 w-full text-sm font-mono text-foreground hover:bg-secondary/30 transition-colors mt-2">
+            className="flex items-center gap-2 px-3 py-1.5 w-full text-sm font-mono text-foreground hover:bg-secondary/30 transition-colors mt-1">
             <AnimatedChevron open={expanded.contacts} />
             contacts
           </button>
@@ -163,15 +255,15 @@ const AboutSection = () => {
                 <button onClick={() => switchFile("interests")}
                   className={`flex items-center gap-2 px-8 py-2 w-full font-mono text-sm border-b border-border transition-colors ${
                     activeFile === "interests" ? "text-foreground bg-secondary/30" : "text-muted-foreground hover:text-foreground"}`}>
-                  <span>🟩</span> interesses
+                  <span>🟩</span> interests
                 </button>
                 <button onClick={() => toggle("education")}
                   className="flex items-center gap-2 px-8 py-2 w-full font-mono text-sm text-muted-foreground hover:text-foreground border-b border-border transition-colors">
                   <AnimatedChevron open={expanded.education} />
-                  <span>🟦</span> educação
+                  <span>🟦</span> education
                 </button>
                 <AccordionPanel open={expanded.education}>
-                  {["high-school", "university"].map(item => (
+                  {["high-school", "college"].map(item => (
                     <button key={item} onClick={() => switchFile("education")}
                       className={`flex items-center gap-2 px-12 py-2 w-full font-mono text-sm border-b border-border transition-colors ${
                         activeFile === "education" ? "text-foreground bg-secondary/30" : "text-muted-foreground hover:text-foreground"}`}>
@@ -181,27 +273,35 @@ const AboutSection = () => {
                 </AccordionPanel>
               </AccordionPanel>
 
-              {/* professional-info */}
+              {/* professional-info mobile */}
               <button onClick={() => toggle("professional-info")}
                 className="flex items-center gap-2 px-4 py-3 w-full font-mono text-sm text-foreground bg-secondary/20 hover:bg-secondary/30 transition-colors border-b border-border">
                 <AnimatedChevron open={expanded["professional-info"]} />
                 professional-info
               </button>
               <AccordionPanel open={expanded["professional-info"]}>
-                <div className="px-8 py-3 font-mono text-sm text-muted-foreground border-b border-border">// in progress...</div>
+                <button onClick={() => switchFile("professionalInfo")}
+                  className={`flex items-center gap-2 px-8 py-2 w-full font-mono text-sm border-b border-border transition-colors ${
+                    activeFile === "professionalInfo" ? "text-foreground bg-secondary/30" : "text-muted-foreground hover:text-foreground"}`}>
+                  <span>🟧</span> professional-info
+                </button>
               </AccordionPanel>
 
-              {/* hobbies */}
+              {/* hobbies mobile */}
               <button onClick={() => toggle("hobbies")}
                 className="flex items-center gap-2 px-4 py-3 w-full font-mono text-sm text-foreground bg-secondary/20 hover:bg-secondary/30 transition-colors border-b border-border">
                 <AnimatedChevron open={expanded.hobbies} />
                 hobbies
               </button>
               <AccordionPanel open={expanded.hobbies}>
-                <div className="px-8 py-3 font-mono text-sm text-muted-foreground border-b border-border">// in progress...</div>
+                <button onClick={() => switchFile("hobbies")}
+                  className={`flex items-center gap-2 px-8 py-2 w-full font-mono text-sm border-b border-border transition-colors ${
+                    activeFile === "hobbies" ? "text-foreground bg-secondary/30" : "text-muted-foreground hover:text-foreground"}`}>
+                  <span>🟪</span> hobbies
+                </button>
               </AccordionPanel>
 
-              {/* contacts */}
+              {/* contacts mobile */}
               <button onClick={() => toggle("contacts")}
                 className="flex items-center gap-2 px-4 py-3 w-full font-mono text-sm text-foreground bg-secondary/20 hover:bg-secondary/30 transition-colors border-b border-border">
                 <AnimatedChevron open={expanded.contacts} />

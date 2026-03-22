@@ -1,12 +1,10 @@
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import { AnimatedChevron } from "@/hooks/useAccordion.tsx";
 import { AccordionPanel } from "@/hooks/useAccordion.tsx";
 import project1 from "@/assets/project-1.jpg";
 import project2 from "@/assets/project-2.jpg";
 import project3 from "@/assets/project-3.jpg";
 import project4 from "@/assets/project-4.jpg";
-
-
 
 const TECH_FILTERS = [
   { id: "react",   label: "React",   icon: "⚛️" },
@@ -19,16 +17,48 @@ const TECH_FILTERS = [
 ];
 
 const PROJECTS = [
-  { id: 1, name: "Project 1", subtitle: "_ui-animations",  description: "Duis aute irure dolor in velit esse cillum dolore.", tech: ["react", "css"],     image: project1 },
-  { id: 2, name: "Project 2", subtitle: "_tetris-game",    description: "Duis aute irure dolor in velit esse cillum dolore.", tech: ["react", "html"],    image: project2 },
-  { id: 3, name: "Project 3", subtitle: "_dashboard",      description: "Duis aute irure dolor in velit esse cillum dolore.", tech: ["vue",   "css"],     image: project3 },
-  { id: 4, name: "Project 4", subtitle: "_analytics",      description: "Duis aute irure dolor in velit esse cillum dolore.", tech: ["angular", "html"],  image: project4 },
+  {
+    id: 1,
+    name: "Project 1",
+    subtitle: "Pixel",
+    description: "Newsletter website made for a tech news Instagram @pixelresearches",
+    tech: ["react", "css", "html"],
+    image: project1,
+    url: "https://pixel-news-madebyme.vercel.app/",
+  },
+  {
+    id: 2,
+    name: "Project 2",
+    subtitle: "repply",
+    description: "Social website made for studies",
+    tech: ["react", "html", "css"],
+    image: project2,
+    url: "https://github.com/jpazv/repply",
+  },
+  {
+    id: 3,
+    name: "Project 3",
+    subtitle: "animesearch",
+    description: "Mobile application for searching anime",
+    tech: ["react", "css"],
+    image: project3,
+    url: "https://github.com/jpazv/animesearch",
+  },
+  {
+    id: 4,
+    name: "Project 4",
+    subtitle: "gitSearch",
+    description: "Feature that allows users to search for GitHub repositories",
+    tech: ["react", "html", "css"],
+    image: project4,
+    url: "https://github.com/jpazv/gitSearch-web",
+  },
 ];
 
 const ProjectsSection = () => {
   const [activeFilters, setActiveFilters] = useState<string[]>(["react"]);
   const [filtersOpen, setFiltersOpen] = useState(false);
-  const [cardKey, setCardKey] = useState(0); // trigger card re-animation on filter change
+  const [cardKey, setCardKey] = useState(0);
 
   const toggleFilter = (id: string) => {
     setActiveFilters(prev =>
@@ -130,10 +160,17 @@ const ProjectsSection = () => {
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                     </div>
                     <div className="p-4">
-                      <p className="font-mono text-sm text-muted-foreground mb-4">{project.description}</p>
-                      <button className="font-mono text-sm px-4 py-1.5 rounded border border-border text-foreground hover:bg-secondary/50 transition-colors">
+                      <p className="font-mono text-sm text-muted-foreground mb-4">
+                        {project.description}
+                      </p>
+                      <a
+                        href={project.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-mono text-sm px-4 py-1.5 rounded border border-border text-foreground hover:bg-secondary/50 transition-colors inline-block"
+                      >
                         view-project
-                      </button>
+                      </a>
                     </div>
                   </div>
                 </div>

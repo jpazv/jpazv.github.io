@@ -19,13 +19,15 @@ const IconGithub = () => (
   </svg>
 );
 
-const SOCIAL = [IconX, IconLinkedIn, IconGithub];
-
+const SOCIAL = [
+  { Icon: IconLinkedIn, url: "https://www.linkedin.com/in/jpazv" },
+  { Icon: IconGithub, url: "https://github.com/jpazv" },
+];
 const NAV_ITEMS: { label: string; section: Section }[] = [
-  { label: "_hello",      section: "hello"    },
-  { label: "_about-me",   section: "about"    },
-  { label: "_projects",   section: "projects" },
-  { label: "_contact-me", section: "contact"  },
+  { label: "_hello", section: "hello" },
+  { label: "_about-me", section: "about" },
+  { label: "_projects", section: "projects" },
+  { label: "_contact-me", section: "contact" },
 ];
 
 interface MobileLayoutProps {
@@ -43,7 +45,7 @@ export function MobileLayout({
 }: MobileLayoutProps) {
   const [showMenu, setShowMenu] = useState(false);
   const [menuAnim, setMenuAnim] = useState("");
-  const [animKey, setAnimKey]   = useState(0);
+  const [animKey, setAnimKey] = useState(0);
   const [animClass, setAnimClass] = useState("");
   const closingRef = useRef(false);
   const prevSection = useRef<Section>(activeSection);
@@ -69,8 +71,8 @@ export function MobileLayout({
 
     // Calcula direção
     const fromIdx = sectionOrder.indexOf(activeSection);
-    const toIdx   = sectionOrder.indexOf(section);
-    const cls     = toIdx > fromIdx ? "mob-anim-right" : "mob-anim-left";
+    const toIdx = sectionOrder.indexOf(section);
+    const cls = toIdx > fromIdx ? "mob-anim-right" : "mob-anim-left";
 
     // 1. Navega imediatamente
     onNavigate(section);
@@ -144,16 +146,17 @@ export function MobileLayout({
             </div>
           </main>
 
-          <footer className="px-4 py-3 border-t border-border flex items-center gap-3 shrink-0">
-            <span className="font-mono text-xs text-muted-foreground">find me in:</span>
-            <div className="flex items-center gap-3">
-              {SOCIAL.map((Icon, i) => (
-                <button key={i} className="text-muted-foreground hover:text-foreground transition-colors p-1">
-                  <Icon />
-                </button>
-              ))}
-            </div>
-          </footer>
+ <footer className="px-4 py-4 border-t border-border flex items-center gap-3 shrink-0">
+  <span className="font-mono text-xs text-muted-foreground">find me in:</span>
+  <div className="flex items-center gap-3">
+    {SOCIAL.map(({ Icon, url }, i) => (
+      <a key={i} href={url} target="_blank" rel="noopener noreferrer"
+        className="text-muted-foreground hover:text-foreground transition-colors p-1">
+        <Icon />
+      </a>
+    ))}
+  </div>
+</footer>
         </div>
 
         {/* Menu overlay — por cima */}
@@ -166,11 +169,10 @@ export function MobileLayout({
                   <button
                     key={section}
                     onClick={() => handleNav(section)}
-                    className={`w-full text-left font-mono text-base px-4 py-3 transition-colors ${
-                      activeSection === section
+                    className={`w-full text-left font-mono text-base px-4 py-3 transition-colors ${activeSection === section
                         ? "text-foreground bg-secondary/30"
                         : "text-muted-foreground hover:text-foreground hover:bg-secondary/10"
-                    }`}
+                      }`}
                     style={{
                       animation: menuAnim === "mob-menu-in"
                         ? `mobMenuIn 260ms cubic-bezier(0.22,1,0.36,1) ${i * 40}ms both`
@@ -185,10 +187,11 @@ export function MobileLayout({
             <footer className="px-4 py-4 border-t border-border flex items-center gap-3 shrink-0">
               <span className="font-mono text-xs text-muted-foreground">find me in:</span>
               <div className="flex items-center gap-3">
-                {SOCIAL.map((Icon, i) => (
-                  <button key={i} className="text-muted-foreground hover:text-foreground transition-colors p-1">
+                {SOCIAL.map(({ Icon, url }, i) => (
+                  <a key={i} href={url} target="_blank" rel="noopener noreferrer"
+                    className="text-muted-foreground hover:text-foreground transition-colors p-1">
                     <Icon />
-                  </button>
+                  </a>
                 ))}
               </div>
             </footer>
