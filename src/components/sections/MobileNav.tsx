@@ -118,7 +118,7 @@ export function MobileLayout({
 
         {/* Header */}
         <header className="flex items-center justify-between px-4 h-11 border-b border-border shrink-0 bg-background z-30 relative">
-          <span className="font-mono text-sm text-foreground">joao-moreira</span>
+          <span className="font-mono text-sm text-foreground">joao-azevedo</span>
           <button
             onClick={() => showMenu ? closeMenu() : openMenu()}
             className="text-muted-foreground hover:text-foreground transition-colors p-1"
